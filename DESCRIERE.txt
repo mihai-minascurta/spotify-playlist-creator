@@ -1,3 +1,0 @@
-# Se foloseste de API ul spotipy pentru a putea creea playlist uri cu piese
-# Alegand o data de format YYYY-DD-MM cu aproximatie de 1-2 saptamani se creeaza un playlist cu top 100 piese lansate in accea perioada
-# Codul are o mica problema deoarece se face playlist ul dupa ,,denumirea ,, melodiei nu si dupa numele interpretului, si duce la mici erori
