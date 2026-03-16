@@ -19,12 +19,13 @@
   <img src="https://placehold.co/1000x2/C3B550/C3B550.png" width="100%" height="2" alt="Yellow Divider"/>
 </h3>
 
-A "Musical Time Machine" script that completely automates playlist creation. By inputting a specific date, the application scrapes the Billboard Hot 100 chart for that week, connects to your Spotify account via OAuth 2.0, searches for the tracks, and generates a private custom playlist for you to enjoy.
+An automated pipeline that bridges historical music charts with modern streaming. The application scrapes the Billboard Hot 100 for a user-specified date, authenticates via Spotify's OAuth 2.0 protocol, and programmatically compiles a private playlist of those specific tracks.
 
-**Key Features:**
-* **🕷️ Web Scraping:** Extracts the top 100 songs for any historical date using `BeautifulSoup`.
-* **🔐 OAuth 2.0 Authentication:** Securely connects to the Spotify Web API using `spotipy`.
-* **⚙️ Automated Search & Build:** Queries Spotify's database for each scraped track and compiles them into a new playlist programmatically.
+**Technical Logic (Verified):**
+* **🕷️ Precise Web Scraping:** Uses `BeautifulSoup` to target specific HTML tags (`h3` and `span`) within the Billboard structure to extract track names and artists accurately.
+* **🔐 Secure Authentication:** Implements `spotipy.SpotifyOAuth` with a local redirect URI to handle secure token exchange and scope management (`playlist-modify-private`).
+* **⚙️ Robust Track Matching:** Features a search loop with error handling to manage cases where Billboard titles might not have an exact match in the Spotify catalog.
+* **📂 Data Transformation:** Converts raw scraped data into a list of Spotify URIs before executing a single-batch playlist creation command.
 
 <br>
 
@@ -35,11 +36,10 @@ A "Musical Time Machine" script that completely automates playlist creation. By 
 
 ```text
 spotify-playlist-creator/
-├── main.py                     # Main execution script & API Logic
-├── .env                        # Hidden environment variables (ID/Secret)
-└── token.txt                   # Auto-generated Spotify OAuth token
+├── main.py                     # Main execution logic & Spotify integration
+├── .env                        # Environment variables (Client ID/Secret)
+└── token.txt                   # Local cache for OAuth access tokens
 ```
-
 <h3>
   🧠 Code Review & Complexity<br>
   <img src="https://placehold.co/1000x2/C3B550/C3B550.png" width="100%" height="2" alt="Yellow Divider"/>
@@ -53,22 +53,21 @@ spotify-playlist-creator/
 
 > **📊 SYSTEM COMPLEXITY RADAR**
 >
-> 🟩🟩🟩🟩🟩🟩🟩🟩⬛⬛ **80%** | **OAuth 2.0 Authentication**<br>
-> 🟨🟨🟨🟨🟨🟨🟨⬛⬛⬛ **70%** | **Web Scraping (BeautifulSoup)**<br>
-> 🟦🟦🟦🟦🟦🟦🟦🟦⬛⬛ **80%** | **API Search & Playlist Build**<br>
-> 🟪🟪🟪🟪🟪⬛⬛⬛⬛⬛ **50%** | **Error Handling (Missing Songs)**
+> 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬛ **90%** | **OAuth 2.0 Auth Flow**<br>
+> 🟨🟨🟨🟨🟨🟨🟨⬛⬛⬛ **70%** | **Web Scraping (BS4)**<br>
+> 🟦🟦🟦🟦🟦🟦🟦🟦⬛⬛ **80%** | **Search & Matching Logic**<br>
+> 🟪🟪🟪🟪🟪⬛⬛⬛⬛⬛ **50%** | **List Comprehension & Parsing**
 
 <br>
 
 **🟢 High-Impact Wins:**
-* **Authentication Mastery:** Successfully navigating Spotify's OAuth 2.0 flow is a major milestone for intermediate developers.
-* **Data Extraction:** Efficiently scraping and parsing the complex HTML structure of the Billboard Hot 100.
+* **API Proficiency:** Demonstrates strong knowledge of the Spotipy library and its authorization flows.
+* **Data Cleansing:** Efficiently stripping whitespace and formatting scraped strings to improve API search accuracy.
 
-**🔧 Key Recommendations (Refactoring):**
-* **Security:** Ensure credentials (`CLIENT_ID` / `CLIENT_SECRET`) are strictly hidden using a `.env` file (`python-dotenv`) and ignored via `.gitignore`.
-* **Resilience:** Add specific `try/except` blocks (like `IndexError`) for when a scraped song doesn't exist on Spotify, to prevent the loop from breaking.
+**🔧 Technical Debt (For Interview Awareness):**
+* **Error Resilience:** In your current code, if the user enters an invalid date format, the script might crash. Adding a `datetime` validation check would make it production-ready.
+* **Search Optimization:** You could further refine the search by adding the artist name to the Spotify query to avoid matching "covers" or different songs with the same title.
 
-<br>
 
 <div align="center">
   <img src="https://placehold.co/1000x3/FE428E/FE428E.png" width="100%" height="3" alt="Pink Divider"/>
