@@ -64,7 +64,7 @@ spotify-playlist-creator/
 * **API Proficiency:** Demonstrates strong knowledge of the Spotipy library and its authorization flows.
 * **Data Cleansing:** Efficiently stripping whitespace and formatting scraped strings to improve API search accuracy.
 
-**🔧 Technical Debt (For Interview Awareness):**
+**🔧 Technical Debt:**
 * **Error Resilience:** In your current code, if the user enters an invalid date format, the script might crash. Adding a `datetime` validation check would make it production-ready.
 * **Search Optimization:** You could further refine the search by adding the artist name to the Spotify query to avoid matching "covers" or different songs with the same title.
 
